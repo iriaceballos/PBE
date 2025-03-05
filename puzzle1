@@ -1,0 +1,39 @@
+require 'ruby-nfc'
+require 'logger'
+
+
+class Rfid
+
+	def initialize
+    		@logger = Logger.new(STDOUT)
+  	end
+
+
+	
+	def read_uid
+		
+		
+		readers = NFC::Reader.all
+
+		if readers.empty?
+      			return nil
+    		end
+
+		readers = readers[0]
+		begin
+			reader.poll do |tag|
+			uid = tag.uid.unpack1('H*')
+      			return uid
+    		end
+
+		
+    		nil
+  	end
+
+end
+
+if __FILE__ == $0
+	rf = Rfid.new
+	uid = rf.read_uid
+	puts uid
+end
