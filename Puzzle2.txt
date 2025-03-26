@@ -1,0 +1,51 @@
+require 'gtk3'
+require_relative 'puzzle1'
+
+def llegir_uid(label, rfid)
+	label.style_context.remove_class("red")
+	label.text = "Please, login with your university card"
+	
+	Thread.new do
+		uid = rfid.read_uid
+
+		GLib::Idle.add do
+			label.style_context.add_class("red")
+			label.text = "Uid: " + uid
+			false
+		end
+	end
+end
+
+window = Gtk::Window.new("Puzzle 2")
+window.set_size_request(500, 1500)
+window.signal_connect("destroy") { Gtk.main_quit }
+window.set_name("my_window")
+
+rfid1 = Rfid.new()
+
+vbox = Gtk::Box.new(:vertical, 2)
+
+label = Gtk::Label.new("Please, login with your university card")
+label.set_name("my_label") # Asignar un nombre al label para el CSS
+vbox.pack_start(label, :expand => true, :fill => true, :padding => 5)
+
+button = Gtk::Button.new(label: "Clear")
+button.set_name("my_button") # Asignar un nombre al botón para el CSS
+vbox.pack_start(button, :expand => true, :fill => true, :padding => 5)
+
+css_provider = Gtk::CssProvider.new
+css_provider.load_from_path("fitxer.css") # Cargar el archivo CSS
+Gtk::StyleContext.add_provider_for_screen(Gdk::Screen.default, css_provider, Gtk::StyleProvider::PRIORITY_USER)
+
+window.add(vbox)
+window.show_all
+
+Gtk.main_iteration
+
+llegir_uid(label, rfid1)
+
+button.signal_connect("clicked") do
+  llegir_uid(label, rfid1)
+end
+
+Gtk.main
