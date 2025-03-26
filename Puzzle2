@@ -40,8 +40,6 @@ Gtk::StyleContext.add_provider_for_screen(Gdk::Screen.default, css_provider, Gtk
 window.add(vbox)
 window.show_all
 
-Gtk.main_iteration
-
 llegir_uid(label, rfid1)
 
 button.signal_connect("clicked") do
