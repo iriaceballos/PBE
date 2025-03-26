@@ -1,0 +1,31 @@
+/* fitxer.css */
+
+#my_label {
+    	background-color: #84DBFA; /* Fons blau */
+	font-size: 16px;
+    	color: black;
+    	border-radius: 10px;
+}
+
+#my_label.red {
+    	background-color: #ED77B6; /* Fons vermell */
+}
+
+#my_button {
+    background-color: #BDBDBD; /* Botó gris */
+    color: black;
+    border: black;
+    padding: 10px 10px;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 2px 2px;
+    border-radius: 10px;
+}
+
+#my_button:hover {
+    background-color: #969696; /* Gris més fosc quan passes per sobre amb el cursor */
+}
+
+#my_window {
+    background-color: #FFFFFF; /* Fons blanc */
+}
